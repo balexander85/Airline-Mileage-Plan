@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys 			# Definitely used for the sen
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait 	# available since 2.4.0
 import datetime												# used to get the current time
+import getpass
 import re
 
 #||||||||||||||||||||||||||||||||||Beginning of Function Definitions||||||||||||||||||||||||||||||||||||||||||||||||
@@ -51,7 +52,7 @@ def print_return_flight_miles(xpath):
 	return_flight = re.search("(\d+\,?\d+)", return_flight.text).group(1)
 	print "Return Flight: %s" % return_flight
 	
-def jet_blue_sign_on(password):
+def jet_blue_sign_on():
 	# go to the JetBlue TrueBlue SignIn page
 	driver.get("https://book.jetblue.com/B6.auth/login?service=https%3A%2F%2Ftrueblue.jetblue.com%2Fc%2Fportal%2Flogin%3Fredirect%3D%252fgroup%252ftrueblue%252fmy-trueblue-home%252f%26p_l_id%3D10561")
 
@@ -62,7 +63,8 @@ def jet_blue_sign_on(password):
 
 	# finds the password box and then sends keys to type out the password
 	jet_blue_pass_path = "password"
-	enter_password(jet_blue_pass_path, password)
+	jet_blue_pass = getpass.getpass("What is your jetblue password?")
+	enter_password(jet_blue_pass_path, jet_blue_pass)
 	
 
 	points_available_path = "/html/body/table[2]/tbody/tr/td/div/div/div[2]/table/tbody/tr[2]/td[2]/div/div/div/div/div/div/div/div/div/form/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div"
@@ -117,6 +119,7 @@ def alaska_air_sign_on():
 	
 	# finds the password box and then sends keys to type out the password
 	alaska_air_pass_path = "FormUserControl$_signInProfile$_passwordControl$_password"
+	alaska_air_pass = getpass.getpass("What is your alaskaair password?")
 	enter_password(alaska_air_pass_path, alaska_air_pass)
 
 	available_miles_path = '//*[@id="FormUserControl__myOverview__mileagePlanInfo"]'
@@ -164,6 +167,7 @@ def american_airlines_sign_on():
 	
 	# finds the password box and then sends keys to type out the password
 	aadvantage_pass_path = "password"
+	aadvantage_pass = getpass.getpass("What is your aadvantage password?")
 	enter_password(aadvantage_pass_path, aadvantage_pass)
 
 	available_miles_path = '/html/body/div/div/div[3]/p'
@@ -218,30 +222,33 @@ def american_airlines_search():
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Beginning of Program$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
+
+
 # Create a new instance of the Firefox driver
 driver = webdriver.Firefox()
 
 current_time()
-jet_blue_pass = raw_input("What is your jetblue password")
-#alaska_air_user = raw_input("What is your alaskaAir password")
-#aadvantage_user = raw_input("What is your aadvantage password")
+
+
+
 
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 print "Jet Blue"
+
 print "Available Points:"
-jet_blue_sign_on(jet_blue_pass)
+jet_blue_sign_on()
 print "-------------------------------------------------------"
-jet_blue_search()
+#jet_blue_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "Alaska Air"
-#alaska_air_sign_on()
+alaska_air_sign_on()
 print "-------------------------------------------------------"
 #alaska_air_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "American Airlines"
-#american_airlines_sign_on()
+american_airlines_sign_on()
 print "-------------------------------------------------------"
 #american_airlines_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
