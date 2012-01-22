@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys 			# Definitely used for the sen
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait 	# available since 2.4.0
 import datetime												# used to get the current time
-import getpass
+import getpass												# for security purposes, user cannot see the password being entered
 import re
 
 #||||||||||||||||||||||||||||||||||Beginning of Function Definitions||||||||||||||||||||||||||||||||||||||||||||||||
@@ -222,19 +222,13 @@ def american_airlines_search():
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Beginning of Program$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-
-
 # Create a new instance of the Firefox driver
 driver = webdriver.Firefox()
 
 current_time()
-
-
-
-
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-print "Jet Blue"
 
+print "Jet Blue"
 print "Available Points:"
 jet_blue_sign_on()
 print "-------------------------------------------------------"
