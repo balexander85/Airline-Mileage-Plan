@@ -53,26 +53,33 @@ def print_return_flight_miles(xpath):
 	print "Return Flight: %s" % return_flight
 	
 def jet_blue_sign_on():
-	# go to the JetBlue TrueBlue SignIn page
-	driver.get("https://book.jetblue.com/B6.auth/login?service=https%3A%2F%2Ftrueblue.jetblue.com%2Fc%2Fportal%2Flogin%3Fredirect%3D%252fgroup%252ftrueblue%252fmy-trueblue-home%252f%26p_l_id%3D10561")
+	# go to the JetBlue Web page
+	driver.get("https://www.jetblue.com")
+	
+	assert "JetBlue" in driver.title
 
+	# go to the JetBlue TrueBlue SignIn page
+
+	'''sign_in_button_path = "sign-in"
+	sign_in_button = driver.find_element_by_class_name(sign_in_button_path)
+	sign_in_button.click()'''
+        
 	# finds the username box and then sends keys to type out the username
-	jet_blue_user_path = "username"
+	jet_blue_user_path = "ctl00$Content$TrueBlueMode$LoggedOutMode$email_field"
 	jet_blue_user = "balexander04@gmail.com"
 	enter_user_name(jet_blue_user_path, jet_blue_user)
 
 	# finds the password box and then sends keys to type out the password
-	jet_blue_pass_path = "password"
+	jet_blue_pass_path = "ctl00$Content$TrueBlueMode$LoggedOutMode$password_field"
 	jet_blue_pass = getpass.getpass("What is your jetblue password?")
 	enter_password(jet_blue_pass_path, jet_blue_pass)
-	
 
-	points_available_path = "/html/body/table[2]/tbody/tr/td/div/div/div[2]/table/tbody/tr[2]/td[2]/div/div/div/div/div/div/div/div/div/form/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div"
+	points_available_path = "/html/body/div[4]/div/div[2]/ul/li[6]/a/span[2]"
 	print_available_miles(points_available_path)
 	
 def jet_blue_search():
         # go to the airline's book flight page
-        driver.get("https://book.jetblue.com/B6/webqtrip.html?_flowExecutionKey=_c533CC095-FB82-7239-3F9A-98002AE8C509_kFC072A4F-92DA-CD63-0CE0-410817D06357")
+        driver.get("http://jetblue.com/flights/?intcmp=hd_plan_flights")
 
         origin_city_path = "originAirportsDisplay"
         origin_city_box = enter_origin_city_name(origin_city_path)
@@ -236,13 +243,13 @@ print "-------------------------------------------------------"
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "Alaska Air"
-alaska_air_sign_on()
+#alaska_air_sign_on()
 print "-------------------------------------------------------"
 #alaska_air_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "American Airlines"
-american_airlines_sign_on()
+#american_airlines_sign_on()
 print "-------------------------------------------------------"
 #american_airlines_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
