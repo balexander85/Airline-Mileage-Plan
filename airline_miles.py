@@ -59,7 +59,6 @@ def jet_blue_sign_on():
 	assert "JetBlue" in driver.title
 
 	# go to the JetBlue TrueBlue SignIn page
-
 	'''sign_in_button_path = "sign-in"
 	sign_in_button = driver.find_element_by_class_name(sign_in_button_path)
 	sign_in_button.click()'''
