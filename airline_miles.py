@@ -1,10 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys 			# Definitely used for the send_keys(Keys.RETURN) function, send the "Return" key
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait 	# available since 2.4.0
-import datetime												# used to get the current time
-import getpass												# for security purposes, user cannot see the password being entered
+from selenium.webdriver.support.ui import WebDriverWait 	        # available since 2.4.0
+import datetime								# used to get the current time
+import getpass								# for security purposes, user cannot see the password being entered
 import re
+
 
 #||||||||||||||||||||||||||||||||||Beginning of Function Definitions||||||||||||||||||||||||||||||||||||||||||||||||
 def current_time():
@@ -28,7 +29,7 @@ def enter_password(password_box_path, password):
 
 def print_available_miles(xpath):
 	available_miles = WebDriverWait(driver, 5).until(lambda driver : driver.find_element_by_xpath(xpath).text)
-	print available_miles
+	return available_miles
 
 def enter_origin_city_name(origin_city_path):
 	origin_city_box = WebDriverWait(driver, 4).until(lambda driver : driver.find_element_by_id(origin_city_path))
@@ -72,9 +73,9 @@ def jet_blue_sign_on():
 	jet_blue_pass_path = "ctl00$Content$TrueBlueMode$LoggedOutMode$password_field"
 	jet_blue_pass = getpass.getpass("What is your jetblue password?")
 	enter_password(jet_blue_pass_path, jet_blue_pass)
-
+	
 	points_available_path = "/html/body/div[4]/div/div[2]/ul/li[6]/a/span[2]"
-	print_available_miles(points_available_path)
+	print "Available Points:", print_available_miles(points_available_path)
 	
 def jet_blue_search():
         # go to the airline's book flight page
@@ -129,7 +130,7 @@ def alaska_air_sign_on():
 	enter_password(alaska_air_pass_path, alaska_air_pass)
 
 	available_miles_path = '//*[@id="FormUserControl__myOverview__mileagePlanInfo"]'
-	print_available_miles(available_miles_path)
+	print print_available_miles(available_miles_path)
 
 def alaska_air_search():
 	# go to the airline's book flight page
@@ -177,7 +178,7 @@ def american_airlines_sign_on():
 	enter_password(aadvantage_pass_path, aadvantage_pass)
 
 	available_miles_path = '/html/body/div/div/div[3]/p'
-	print_available_miles(available_miles_path)
+	print print_available_miles(available_miles_path)
 
 def american_airlines_search():
 	# go to the airline's book flight page
@@ -235,8 +236,7 @@ current_time()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "Jet Blue"
-print "Available Points:"
-jet_blue_sign_on()
+#jet_blue_sign_on()
 print "-------------------------------------------------------"
 #jet_blue_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
@@ -248,7 +248,7 @@ print "-------------------------------------------------------"
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "American Airlines"
-#american_airlines_sign_on()
+american_airlines_sign_on()
 print "-------------------------------------------------------"
 #american_airlines_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
