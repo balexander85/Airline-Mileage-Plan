@@ -58,11 +58,6 @@ def jet_blue_sign_on():
 	driver.get("https://www.jetblue.com")
 	
 	assert "JetBlue" in driver.title
-
-	# go to the JetBlue TrueBlue SignIn page
-	'''sign_in_button_path = "sign-in"
-	sign_in_button = driver.find_element_by_class_name(sign_in_button_path)
-	sign_in_button.click()'''
         
 	# finds the username box and then sends keys to type out the username
 	jet_blue_user_path = "ctl00$Content$TrueBlueMode$LoggedOutMode$email_field"
@@ -118,6 +113,8 @@ def jet_blue_search():
 def alaska_air_sign_on():
 	# go to the Alaska Air Member Area SignIn page
 	driver.get("https://www.alaskaair.com/www2/ssl/myalaskaair/MyAlaskaAir.aspx?CurrentForm=UCSignInStart&url=https://www.alaskaair.com/www2/ssl/myalaskaair/MyAlaskaAir.aspx?")
+
+	assert "My Account" in driver.title
 	
 	# finds the username box and then sends keys to type out the username
 	alaska_air_user_path = "FormUserControl$_signInProfile$_userIdControl$_userId"
