@@ -15,21 +15,13 @@ def current_time():
 	
 def enter_user_name(user_name_path, user_name):
 	# find the element that's name attribute is Email (username box)
-<<<<<<< HEAD
-	user_name_box = WebDriverWait(driver, 2).until(lambda driver : driver.find_element_by_name(user_name_path))
-=======
 	user_name_box = driver.find_element_by_name(user_name_path)
->>>>>>> 73439da9f9441fc9b5f03447498489ca35a4cb98
 	# type in the user name
 	user_name_box.send_keys(user_name)
 	
 def enter_password(password_box_path, password):
 	# find the element that's name attribute is password (the password box)
-<<<<<<< HEAD
-	password_box = WebDriverWait(driver, 1).until(lambda driver : driver.find_element_by_name(password_box_path))
-=======
 	password_box = driver.find_element_by_name(password_box_path)
->>>>>>> 73439da9f9441fc9b5f03447498489ca35a4cb98
 	# type in the password
 	password_box.send_keys(password)
 	# submit the form
@@ -172,11 +164,8 @@ def american_airlines_sign_on():
 	# go to the AAdvantage Member SignIn page
 	driver.get("https://www.aa.com/login/loginAccess.do?uri=/login/loginAccess.do&previousPage=/myAccount/reservationPreferencesAccess.do&continueUrl=/myAccount/reservationPreferencesAccess.do&v_locale=en_US&v_mobileUAFlag=AA&previousPage=/myAccount/reservationPreferencesAccess.do&uri=/login/loginAccess.do&continueUrl=/myAccount/reservationPreferencesAccess.do")
 
-<<<<<<< HEAD
-=======
 	assert "Login" in driver.title
-	
->>>>>>> 73439da9f9441fc9b5f03447498489ca35a4cb98
+
 	# finds the username box and then sends keys to type out the username
 	aadvantage_user_path = "aadvantageNumber"
 	aadvantage_user = "132AEU6"
@@ -244,29 +233,20 @@ driver = webdriver.Firefox()
 
 current_time()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-
 print "Jet Blue"
-<<<<<<< HEAD
-#jet_blue_sign_on()
-=======
 jet_blue_sign_on()
->>>>>>> 73439da9f9441fc9b5f03447498489ca35a4cb98
 print "-------------------------------------------------------"
 #jet_blue_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "Alaska Air"
-<<<<<<< HEAD
 #alaska_air_sign_on()
-=======
-alaska_air_sign_on()
->>>>>>> 73439da9f9441fc9b5f03447498489ca35a4cb98
 print "-------------------------------------------------------"
 #alaska_air_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "American Airlines"
-american_airlines_sign_on()
+#american_airlines_sign_on()
 print "-------------------------------------------------------"
 #american_airlines_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
