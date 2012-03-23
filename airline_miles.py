@@ -55,7 +55,6 @@ def print_return_flight_miles(xpath):
 def jet_blue_sign_on():
 	# go to the JetBlue Web page
 	driver.get("https://www.jetblue.com")
-	
 	assert "JetBlue" in driver.title
         
 	# finds the username box and then sends keys to type out the username
@@ -161,8 +160,7 @@ def alaska_air_search():
 
 def american_airlines_sign_on():
 	# go to the AAdvantage Member SignIn page
-	driver.get("https://www.aa.com/login/loginAccess.do?uri=/login/loginAccess.do&previousPage=/myAccount/reservationPreferencesAccess.do&continueUrl=/myAccount/reservationPreferencesAccess.do&v_locale=en_US&v_mobileUAFlag=AA&previousPage=/myAccount/reservationPreferencesAccess.do&uri=/login/loginAccess.do&continueUrl=/myAccount/reservationPreferencesAccess.do")
-
+	driver.get("https://www.aa.com/login/loginAccess.do?uri=%2flogin%2floginAccess.do&previousPage=%2flogin%2flogout.do&bookingPathStateId=&marketId=")
 	assert "Login" in driver.title
 
 	# finds the username box and then sends keys to type out the username
@@ -175,7 +173,7 @@ def american_airlines_sign_on():
 	#aadvantage_pass = getpass.getpass("What is your aadvantage password?")
 	enter_password(aadvantage_pass_path, aadvantage_pass)
 
-	assert "My Account" in driver.title
+	assert "Airline" in driver.title
 	points_available = driver.find("div#aa-personalize p").text
 	print points_available
 
@@ -185,10 +183,10 @@ def american_airlines_search():
 
 	origin_city_path = "awardFlightSearchForm.originAirport"
 	enter_origin_city_name(origin_city_path)
-	
+
 	destination_city_path = "awardFlightSearchForm.destinationAirport"
 	enter_destination_city_name(destination_city_path)
-	
+
 	#Departure Flight Date
 	#Specific month of departure
 	departure_date_month = driver.find_element_by_xpath("/html/body/div/div[4]/div/div/div/table/tbody/tr[4]/td/form/table/tbody/tr/td/div/div/div/div[5]/div[2]/div/select/option[4]")
@@ -199,7 +197,7 @@ def american_airlines_search():
 	#Specific 'time of day' of departure
 	departure_date_time = driver.find_element_by_xpath("/html/body/div/div[4]/div/div/div/table/tbody/tr[4]/td/form/table/tbody/tr/td/div/div/div/div[5]/div[2]/div/select[3]/option")
 	departure_date_time.click()
-	
+
 	#Return Flight Date
 	#Specific day of return
 	return_date_month = driver.find_element_by_xpath("/html/body/div/div[4]/div/div/div/table/tbody/tr[4]/td/form/table/tbody/tr/td/div/div/div/div[5]/div[2]/div[2]/select/option[4]")
@@ -210,15 +208,15 @@ def american_airlines_search():
 	#Specific 'time of day' of return
 	return_date_time = driver.find_element_by_xpath("/html/body/div/div[4]/div/div/div/table/tbody/tr[4]/td/form/table/tbody/tr/td/div/div/div/div[5]/div[2]/div[2]/select[3]/option")
 	return_date_time.click()
-	
+
 	#Select the button and click it to submit the form
 	go_button_element = driver.find_element_by_id("awardFlightSearchForm.button.go")
 	go_button_element.click()
-	
+
 	#Capture and store the value of miles required for the submitted departure date
 	departure_flight_path = '//*[@id="flightTabMiles_0"]'
 	print_departure_flight_miles(departure_flight_path)
-	
+
 	#Capture and store the value of miles required for the submitted return date
 	return_flight_path = '//*[@id="flightTabMiles_1"]'
 	print_return_flight_miles(return_flight_path)
@@ -227,20 +225,19 @@ def american_airlines_search():
 #||||||||||||||||||||||||||||||||||End of Function Definitions||||||||||||||||||||||||||||||||||||||||||||||||
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Beginning of Program$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
 # Create a new instance of the Firefox driver
 driver = WebDriver('firefox')
 
 current_time()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 print "Jet Blue"
-jet_blue_sign_on()
+#jet_blue_sign_on()
 print "-------------------------------------------------------"
 #jet_blue_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "Alaska Air"
-alaska_air_sign_on()
+#alaska_air_sign_on()
 print "-------------------------------------------------------"
 #alaska_air_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
@@ -254,5 +251,4 @@ print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 print "Press enter to close!"
 raw_input()
 driver.quit()
-
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$End of Program$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
