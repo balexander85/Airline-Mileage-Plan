@@ -1,11 +1,12 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys 			# Definitely used for the send_keys(Keys.RETURN) function, send the "Return" key
+from webdriverplus import WebDriver  						# New! Need to figure what all I can use it for, but supposed to be Python Friendly
+from airpass import *										# Stores my passwords for logins
+#from selenium.webdriver.common.keys import Keys 			# Definitely used for the send_keys(Keys.RETURN) function, send the "Return" key
+
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait 	        # available since 2.4.0
-import datetime								# used to get the current time
-import getpass								# for security purposes, user cannot see the password being entered
-import re
-
+import datetime												# used to get the current time
+import getpass												# for security purposes, user cannot see the password being entered
+import re 													# imports regex, not using currently
 
 #||||||||||||||||||||||||||||||||||Beginning of Function Definitions||||||||||||||||||||||||||||||||||||||||||||||||
 def current_time():
@@ -15,20 +16,18 @@ def current_time():
 	
 def enter_user_name(user_name_path, user_name):
 	# find the element that's name attribute is Email (username box)
-	user_name_box = driver.find_element_by_name(user_name_path)
+	user_name_box = driver.find(name=user_name_path)
 	# type in the user name
 	user_name_box.send_keys(user_name)
 	
 def enter_password(password_box_path, password):
 	# find the element that's name attribute is password (the password box)
-	password_box = driver.find_element_by_name(password_box_path)
+	password_box = driver.find(name=password_box_path)
 	# type in the password
-	password_box.send_keys(password)
-	# submit the form
-	password_box.send_keys(Keys.RETURN)
+	password_box.send_keys(password,"\n")	# submit the form with the '\n'
 
 def print_available_miles(xpath):
-	available_miles = WebDriverWait(driver, 5).until(lambda driver : driver.find_element_by_xpath(xpath).text)
+	available_miles = WebDriverWait(driver, 4).until(lambda driver : driver.find_element_by_xpath(xpath).text)
 	return available_miles
 
 def enter_origin_city_name(origin_city_path):
@@ -66,49 +65,49 @@ def jet_blue_sign_on():
 
 	# finds the password box and then sends keys to type out the password
 	jet_blue_pass_path = "ctl00$Content$TrueBlueMode$LoggedOutMode$password_field"
-	jet_blue_pass = getpass.getpass("What is your jetblue password?")
+	#jet_blue_pass = getpass.getpass("What is your jetblue password?")
 	enter_password(jet_blue_pass_path, jet_blue_pass)
-	
-	points_available_path = "/html/body/div[4]/div/div[2]/ul/li[6]/a/span[2]"
-	print "Available Points:", print_available_miles(points_available_path)
+
+	points_available = driver.find("span.points").text
+	print points_available
 	
 def jet_blue_search():
-        # go to the airline's book flight page
-        driver.get("http://jetblue.com/flights/?intcmp=hd_plan_flights")
+    # go to the airline's book flight page
+    driver.get("http://jetblue.com/flights/?intcmp=hd_plan_flights")
 
-        origin_city_path = "originAirportsDisplay"
-        origin_city_box = enter_origin_city_name(origin_city_path)
-        origin_city_box.send_keys(Keys.RETURN)
+    origin_city_path = "originAirportsDisplay"
+    origin_city_box = enter_origin_city_name(origin_city_path)
+    origin_city_box.send_keys(Keys.RETURN)
 
-        destination_city_path = "destinationAirportsDisplay"
-        destination_city_box = enter_destination_city_name(destination_city_path)
-        destination_city_box.send_keys(Keys.RETURN)
+    destination_city_path = "destinationAirportsDisplay"
+    destination_city_box = enter_destination_city_name(destination_city_path)
+    destination_city_box.send_keys(Keys.RETURN)
 
-        next_date = driver.find_element_by_link_text("Next Month (March 2012)")
-        next_date.click()
-        next_date = driver.find_element_by_link_text("Next Month (April 2012)")
-        next_date.click()
+    next_date = driver.find_element_by_link_text("Next Month (March 2012)")
+    next_date.click()
+    next_date = driver.find_element_by_link_text("Next Month (April 2012)")
+    next_date.click()
 
-        departure_date = driver.find_element_by_xpath("/html/body/div[10]/div/div[2]/div/div[2]/table/tbody/tr[2]/td[4]/a")
-        departure_date.click()
+    departure_date = driver.find_element_by_xpath("/html/body/div[10]/div/div[2]/div/div[2]/table/tbody/tr[2]/td[4]/a")
+    departure_date.click()
 
-        return_date = driver.find_element_by_xpath("/html/body/div[9]/div/div[2]/div/div/table/tbody/tr[3]/td/a")
-        return_date.click()
+    return_date = driver.find_element_by_xpath("/html/body/div[9]/div/div[2]/div/div/table/tbody/tr[3]/td/a")
+    return_date.click()
 
-        points_radio_button = driver.find_element_by_id("fareTypeTrueblue")  
-        points_radio_button.click()
+    points_radio_button = driver.find_element_by_id("fareTypeTrueblue")
+    points_radio_button.click()
 
-        find_flights = driver.find_element_by_id("searchFormSubmit")
-        find_flights.click()
+    find_flights = driver.find_element_by_id("searchFormSubmit")
+    find_flights.click()
 
-        #outbound_fare = driver.find_element_by_name("outbound_fare")
-        #outbound_fare.click()
+    #outbound_fare = driver.find_element_by_name("outbound_fare")
+    #outbound_fare.click()
 
-        departure_flight_path = '/html/body/div[9]/div[2]/div/form/div/div[2]/ul/li[4]/div/div/span'
-        print_departure_flight_miles(departure_flight_path)
+    departure_flight_path = '/html/body/div[9]/div[2]/div/form/div/div[2]/ul/li[4]/div/div/span'
+    print_departure_flight_miles(departure_flight_path)
 
-        return_flight_path = '/html/body/div[9]/div[2]/div/form/div/div[6]/ul/li[4]/div/div/span'
-        print_return_flight_miles(return_flight_path)
+    return_flight_path = '/html/body/div[9]/div[2]/div/form/div/div[6]/ul/li[4]/div/div/span'
+    print_return_flight_miles(return_flight_path)
 
 def alaska_air_sign_on():
 	# go to the Alaska Air Member Area SignIn page
@@ -123,11 +122,11 @@ def alaska_air_sign_on():
 	
 	# finds the password box and then sends keys to type out the password
 	alaska_air_pass_path = "FormUserControl$_signInProfile$_passwordControl$_password"
-	alaska_air_pass = getpass.getpass("What is your alaskaair password?")
+	#alaska_air_pass = getpass.getpass("What is your alaskaair password?")
 	enter_password(alaska_air_pass_path, alaska_air_pass)
 
-	available_miles_path = '//*[@id="FormUserControl__myOverview__mileagePlanInfo"]'
-	print print_available_miles(available_miles_path)
+	points_available = driver.find("#FormUserControl__myOverview__mileagePlanInfo").text
+	print points_available
 
 def alaska_air_search():
 	# go to the airline's book flight page
@@ -173,11 +172,12 @@ def american_airlines_sign_on():
 	
 	# finds the password box and then sends keys to type out the password
 	aadvantage_pass_path = "password"
-	aadvantage_pass = getpass.getpass("What is your aadvantage password?")
+	#aadvantage_pass = getpass.getpass("What is your aadvantage password?")
 	enter_password(aadvantage_pass_path, aadvantage_pass)
 
-	available_miles_path = '/html/body/div/div/div[3]/p'
-	print print_available_miles(available_miles_path)
+	assert "My Account" in driver.title
+	points_available = driver.find("div#aa-personalize p").text
+	print points_available
 
 def american_airlines_search():
 	# go to the airline's book flight page
@@ -229,7 +229,7 @@ def american_airlines_search():
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Beginning of Program$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 # Create a new instance of the Firefox driver
-driver = webdriver.Firefox()
+driver = WebDriver('firefox')
 
 current_time()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
@@ -240,13 +240,13 @@ print "-------------------------------------------------------"
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "Alaska Air"
-#alaska_air_sign_on()
+alaska_air_sign_on()
 print "-------------------------------------------------------"
 #alaska_air_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "American Airlines"
-#american_airlines_sign_on()
+american_airlines_sign_on()
 print "-------------------------------------------------------"
 #american_airlines_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
@@ -254,6 +254,5 @@ print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 print "Press enter to close!"
 raw_input()
 driver.quit()
-
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$End of Program$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
