@@ -1,12 +1,11 @@
-from webdriverplus import WebDriver  						# New! Need to figure what all I can use it for, but supposed to be Python Friendly
-from airpass import *										# Stores my passwords for logins
-#from selenium.webdriver.common.keys import Keys 			# Definitely used for the send_keys(Keys.RETURN) function, send the "Return" key
-
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait 	        # available since 2.4.0
 import datetime												# used to get the current time
 import getpass												# for security purposes, user cannot see the password being entered
 import re 													# imports regex, not using currently
+from webdriverplus import WebDriver  						# New! Need to figure what all I can use it for, but supposed to be Python Friendly
+from airpass import *										# Stores my passwords for logins
+from selenium.webdriver.common.keys import Keys 			# Definitely used for the send_keys(Keys.RETURN) function, send the "Return" key
+from selenium.webdriver.support.ui import WebDriverWait 	# available since 2.4.0
+from selenium.common.exceptions import TimeoutException
 
 #||||||||||||||||||||||||||||||||||Beginning of Function Definitions||||||||||||||||||||||||||||||||||||||||||||||||
 def current_time():
@@ -26,18 +25,15 @@ def enter_password(password_box_path, password):
 	# type in the password
 	password_box.send_keys(password,"\n")	# submit the form with the '\n'
 
-def print_available_miles(xpath):
-	available_miles = WebDriverWait(driver, 4).until(lambda driver : driver.find_element_by_xpath(xpath).text)
-	return available_miles
-
 def enter_origin_city_name(origin_city_path):
-	origin_city_box = WebDriverWait(driver, 4).until(lambda driver : driver.find_element_by_id(origin_city_path))
+	origin_city_box = driver.find(id=origin_city_path)
 	origin_city_box.click()
+	origin_city_box.clear()
 	origin_city_box.send_keys("AUS")
 	return origin_city_box
 
 def enter_destination_city_name(destination_city_path):
-	destination_city_box = WebDriverWait(driver, 2).until(lambda driver : driver.find_element_by_id(destination_city_path))
+	destination_city_box = driver.find(id=destination_city_path)
 	destination_city_box.click()
 	destination_city_box.send_keys("SFO")
 	return destination_city_box
@@ -72,13 +68,13 @@ def jet_blue_sign_on():
 	
 def jet_blue_search():
     # go to the airline's book flight page
-    driver.get("http://jetblue.com/flights/?intcmp=hd_plan_flights")
+    driver.get("https://www.jetblue.com/plan-a-trip/?intcmp=hd_plan")
 
-    origin_city_path = "originAirportsDisplay"
+    origin_city_path = "from_field"
     origin_city_box = enter_origin_city_name(origin_city_path)
-    origin_city_box.send_keys(Keys.RETURN)
 
-    destination_city_path = "destinationAirportsDisplay"
+    '''
+    destination_city_path = "to_field"
     destination_city_box = enter_destination_city_name(destination_city_path)
     destination_city_box.send_keys(Keys.RETURN)
 
@@ -106,7 +102,7 @@ def jet_blue_search():
     print_departure_flight_miles(departure_flight_path)
 
     return_flight_path = '/html/body/div[9]/div[2]/div/form/div/div[6]/ul/li[4]/div/div/span'
-    print_return_flight_miles(return_flight_path)
+    print_return_flight_miles(return_flight_path)'''
 
 def alaska_air_sign_on():
 	# go to the Alaska Air Member Area SignIn page
@@ -226,14 +222,14 @@ def american_airlines_search():
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Beginning of Program$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # Create a new instance of the Firefox driver
-driver = WebDriver('firefox')
+driver = WebDriver('firefox', quit_on_exit=False)
 
 current_time()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 print "Jet Blue"
 #jet_blue_sign_on()
 print "-------------------------------------------------------"
-#jet_blue_search()
+jet_blue_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "Alaska Air"
@@ -243,7 +239,7 @@ print "-------------------------------------------------------"
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "American Airlines"
-american_airlines_sign_on()
+#american_airlines_sign_on()
 print "-------------------------------------------------------"
 #american_airlines_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
