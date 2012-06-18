@@ -70,7 +70,7 @@ jetblue_url = "https://book.jetblue.com/B6.auth/login?intcmp=hd_signin&service=h
 american_air_url = "https://www.aa.com/login/loginAccess.do?uri=%2flogin%2floginAccess.do&previousPage=%2fhomePage.do&bookingPathStateId=&marketId="
 alaska_air = "https://www.alaskaair.com/www2/ssl/myalaskaair/MyAlaskaAir.aspx?CurrentForm=UCSignInStart&url=https://www.alaskaair.com/www2/ssl/myalaskaair/MyAlaskaAir.aspx?"
 
-print "Jet Blue"ex
+print "Jet Blue"
 jetblue = airlineMiles(me)
 jetblue.get_url(jetblue_url)
 jetblue.enter_user_name(me['jetblue_user'])
