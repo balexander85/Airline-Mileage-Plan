@@ -227,19 +227,19 @@ driver = WebDriver('firefox', quit_on_exit=False)
 current_time()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 print "Jet Blue"
-#jet_blue_sign_on()
+jet_blue_sign_on()
 print "-------------------------------------------------------"
-jet_blue_search()
+#jet_blue_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "Alaska Air"
-#alaska_air_sign_on()
+alaska_air_sign_on()
 print "-------------------------------------------------------"
 #alaska_air_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 
 print "American Airlines"
-#american_airlines_sign_on()
+american_airlines_sign_on()
 print "-------------------------------------------------------"
 #american_airlines_search()
 print "|||||||||||||||||||||||||||||||||||||||||||||||||||||||"
