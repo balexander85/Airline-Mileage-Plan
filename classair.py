@@ -17,10 +17,9 @@ class AirlineMiles(object):
 	def get_url(self, award_url):
 		# go to the Airline Miles Web page
 		self.driver.get(award_url)
-	
+
 	def enter_user_name(self, user_name):
 		for e in self.driver.find('input'):
-			#print e.id
 			if re.search("email|aadvantageNumber|UserId|username", e.id, flags=re.I):
 				user_name_path = e.id
 
@@ -34,7 +33,7 @@ class AirlineMiles(object):
 			#print e.id
 			if re.search("password|pwd", e.id, flags=re.I):
 				user_password_path = e.id
-		
+
 		# find the element that's name attribute is password (the password box)
 		password_box = self.driver.find(id=user_password_path)
 		# type in the password
@@ -51,50 +50,27 @@ class AirlineMiles(object):
 		print mileage_balance
 		print lines_spaces
 
+	def get_miles(self, url, user, password):
+	    airline_miles = AirlineMiles(driver)
+		airline_miles.get_url(url)
+		airline_miles.enter_user_name(user)
+		airline_miles.enter_user_password(password)
+		return airline_miles.get_mileage_balance()
 #||||||||||||||||||||||||||||||||||Beginning of Function Definitions||||||||||||||||||||||||||||||||||||||||||||||||
+
+
 def current_time():
 	now = datetime.datetime.now()
 	print "Current date and time"
 	print "%d-%d-%d %d:%d" % (now.day, now.month, now.year, now.hour, now.minute)
 
-def get_miles(driver, url, user, password):
-	airline_miles = AirlineMiles(driver)
-	airline_miles.get_url(url)
-	airline_miles.enter_user_name(user)
-	airline_miles.enter_user_password(password)
-	return airline_miles.get_mileage_balance()
-
-# get_miles(driver, jetblue_url, me['jetblue_user'], me['jet_blue_pass'])
-
-# jet_blue = (driver, jetblue_url, me['jetblue_user'], me['jet_blue_pass'])
-
-# get_miles(*jet_blue)
-# get_miles(**jet_blue_dict)
-
-# def wait_for_element(e, timeout=60):
-# 	pass
-
-# wait_for_element(e)
-
-# wait_for_element(e, 30)
-
-# class Foo(Bar):
-
-# 	def __init__(self, foo_p, *args, **kwargs):
-# 		self.foo_p = foo_p
-# 		super(Foo, self).__init__(*args, **kwargs)
-
-
-
-# jet_blue_dict = {"driver": driver, "url": }
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Beginning of Program$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-me = {'name': 'Brian', 'jetblue_user': 'balexander04@gmail.com', 'jet_blue_pass': jet_blue_pass, 
-	'aadvantage_user': '132AEU6', 'aadvantage_pass': aadvantage_pass,
-	'alaska_air_user': '108970153', 'alaska_air_pass': alaska_air_pass }
+user = {'name': 'Brian', 'jetblue_user': 'balexander04@gmail.com', 'jet_blue_pass': jet_blue_pass,
+'aadvantage_user': '132AEU6', 'aadvantage_pass': aadvantage_pass,
+'alaska_air_user': '108970153', 'alaska_air_pass': alaska_air_pass}
 
 # Create a new instance of the Firefox driver
 driver = WebDriver('firefox', quit_on_exit=True, reuse_browser=True)
-
 
 #Award airlineMile URL's
 jetblue_url = "https://book.jetblue.com/B6.auth/login?intcmp=hd_signin&service=https://www.jetblue.com/default.aspx"
@@ -103,32 +79,21 @@ alaska_air = "https://www.alaskaair.com/www2/ssl/myalaskaair/MyAlaskaAir.aspx?Cu
 
 print "Jet Blue"
 jetblue = AirlineMiles(driver)
-jetblue.get_url(jetblue_url)
-jetblue.enter_user_name(me['jetblue_user'])
-jetblue.enter_user_password(me['jet_blue_pass'])
-jetblue.get_mileage_balance()
-# print "Press enter for next!"
-# raw_input()
+# jetblue.get_url(jetblue_url)
+# jetblue.enter_user_name(user['jetblue_user'])
+# jetblue.enter_user_password(user['jet_blue_pass'])
+# jetblue.get_mileage_balance()
 
+# print "Alaska Air"
+# american_air = AirlineMiles(driver)
+# american_air.get_url(american_air_url)
+# american_air.enter_user_name(user['aadvantage_user'])
+# american_air.enter_user_password(user['aadvantage_pass'])
+# american_air.get_mileage_balance()
 
-
-#get_miles(jetblue)
-
-print "Alaska Air"
-american_air = AirlineMiles(driver)
-american_air.get_url(american_air_url) 
-american_air.enter_user_name(me['aadvantage_user'])
-american_air.enter_user_password(me['aadvantage_pass'])
-american_air.get_mileage_balance()
-# print "Press enter for next!"
-# raw_input()
-
-print "American Airlines"
-alaskaair = AirlineMiles(driver)
-alaskaair.get_url(alaska_air)
-alaskaair.enter_user_name(me['alaska_air_user'])
-alaskaair.enter_user_password(me['alaska_air_pass'])
-alaskaair.get_mileage_balance()
-
-print "Press enter to close!"
-raw_input()
+# print "American Airlines"
+# alaskaair = AirlineMiles(driver)
+# alaskaair.get_url(alaska_air)
+# alaskaair.enter_user_name(user['alaska_air_user'])
+# alaskaair.enter_user_password(user['alaska_air_pass'])
+# alaskaair.get_mileage_balance()
