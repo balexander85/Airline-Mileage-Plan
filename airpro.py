@@ -68,7 +68,17 @@ class AirlineMiles(script.Script):
     def search_flight(self):
         '''Takes Departure, and Arrival location with
         dates and searches for flights'''
-        print self.URL
+        try:
+            self.driver.find(id='from_field').clear()
+            self.driver.find(id='from_field').send_keys('AUS').send_keys('\n')
+
+            self.driver.find(id='to_field').clear()
+            self.driver.find(id='to_field').send_keys('SFO').send_keys('\t')
+            self.driver.find(text='Points').click()
+            print chea
+        except:
+            chea
+
 
 if __name__ == '__main__':
     AirlineMiles().do_stuff()
